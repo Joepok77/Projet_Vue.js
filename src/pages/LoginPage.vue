@@ -1,75 +1,78 @@
 <template>
     <main class="login_main">
-        <h1>Login Page</h1>
-        <form v-on:submit.prevent.stop.once="submitHandler">
+
+        <h1>Login page</h1>
+        <form @submit.prevent="submitHandler">
             <section>
                 <article>
                     <label for="email"></label>
-                    <input
-                    v-model="data.email" 
-                    id="email"
-                    placeholder="Enter your email"
-                    type="email"
-                    class="input"
-                    />
-                </article>
-                <article>
-                    <label for="password"></label>
                     <input 
-                    v-model="data.password"
-                    id="password"
-                    placeholder="Entrez votre mot de passe"
-                    type="password"
-                    class="input"
-                    />
+                    v-model="email"
+                    type="email"
+                    id="email"
+                    placeholder="Entrer votre email"
+                    class="input">
                 </article>
             </section>
             <section>
-                <button type="submit" class="button is-primary">Se connecter</button>
-                <button type ="reset" class="button is-danger">Réinitialiser</button>
+                <article>
+                    <label for="password"></label>
+                    <input v-model="password" type="password" id="password"
+                    placeholder="Entrer votre mdp"
+                    class="input">
+                    
+                </article>
+            </section>
+            <section>
+                <button type="submit"
+                class="button is-primary">Valider</button>
+                <button type="reset" class="button is-danger">Réinitialiser</button>
             </section>
         </form>
     </main>
 </template>
 
-<script setup lang="ts">
-import { reactive, watch } from 'vue';
+<script lang="ts" setup>
+import {ref, watch} from 'vue'
+import inputValidator from '../utils/input-validator';
+    const email= ref('')
+    const password= ref('')
 
 
-const data = reactive({
-    email: '',
-    password: ''
-});
+// watch(user, (val) => {
 
-watch(data, () => {
-    console.log('Changement dans la variable data')
-});
+//     if(val.email){
 
-const isUserInputValid = (input: string): boolean => {
-    const pattern = new RegExp('^[a-zA-Z0-9._+-%]{3,20}[@]{1}[a-zA-Z0-9]{2,20}[.]{1}[a-zA-Z]{2,10}$');
-    return pattern.test(input);
-};
+//         console.log(val.email, inputValidator(val.email, 'email'));
+//     } else{
+//         console.log(val.password, inputValidator(val.password, 'password'));
 
-const isPasswordValid = (password: string): boolean => {
-    const pattern = new RegExp('^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@#$%^&*!?])[A-Za-z\\d@#$%^&*!?]{8,}$');
-    return pattern.test(password);
-};
+//     }
+// })
+
+watch(email, (val) => {
+    console.log(val, inputValidator(val, 'email'))
+})
+watch(password, (val) => {
+    console.log(val, inputValidator(val, 'password'))
+})
+
+// const isUserInputValid = (input: string): boolean => {
+//     const pattern = new RegExp("^[a-zA-Z0-9._%+\-]{2,64}[@]{1}[a-zA-Z0-9.\-]{2,64}[.]{1}[a-zA-Z]{2,}$");
+//     return pattern.test(input);
+// }
 
 
 const submitHandler = () => {
-    if (!isUserInputValid(data.email)){
-        alert('Email invalide');
-        return;
-    }
-
-    if (!isPasswordValid(data.password)) {
-        alert('Mot de passe invalide : doit contenir au moins 8 caractères, une lettre et un chiffre');
-        return;
-    }
-
-    console.log('Email et mot de passe valides');
-   
+    
 }
 
+const inputHandler = function(){
 
+}
 </script>
+
+<style lang="scss" scoped>
+.login_main{
+
+}</style>
