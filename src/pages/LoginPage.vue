@@ -46,12 +46,12 @@ watch(data, () => {
 });
 
 const isUserInputValid = (input: string): boolean => {
-    const pattern = new RegExp('^[a-zA-Z0-9._]{3,20}[@]{1}[a-zA-Z0-9]{2,20}[.]{1}[a-zA-Z]{2,10}$');
+    const pattern = new RegExp('^[a-zA-Z0-9._+-%]{3,20}[@]{1}[a-zA-Z0-9]{2,20}[.]{1}[a-zA-Z]{2,10}$');
     return pattern.test(input);
 };
 
 const isPasswordValid = (password: string): boolean => {
-    const pattern = new RegExp('^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$');
+    const pattern = new RegExp('^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@#$%^&*!?])[A-Za-z\\d@#$%^&*!?]{8,}$');
     return pattern.test(password);
 };
 
