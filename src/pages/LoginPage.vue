@@ -41,15 +41,19 @@ const data = reactive({
     password: ''
 });
 
-watch(data, (val) => {
+watch(data, () => {
     console.log('Changement dans la variable data')
 });
 
-const isUserInputValid = (input:string): boolean => {
-    
-    const pattern = new RegExp('^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$');
+const isUserInputValid = (input: string): boolean => {
+    const pattern = new RegExp('^[a-zA-Z0-9._]{3,20}[@]{1}[a-zA-Z0-9]{2,20}[.]{1}[a-zA-Z]{2,10}$');
     return pattern.test(input);
-}
+};
+
+const isPasswordValid = (password: string): boolean => {
+    const pattern = new RegExp('^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$');
+    return pattern.test(password);
+};
 
 
 const submitHandler = () => {
@@ -57,7 +61,15 @@ const submitHandler = () => {
         alert('Email invalide');
         return;
     }
-    console.log ('Email valide');
+
+    if (!isPasswordValid(data.password)) {
+        alert('Mot de passe invalide : doit contenir au moins 8 caractères, une lettre et un chiffre');
+        return;
+    }
+
+    console.log('Email et mot de passe valides');
+   
 }
+
 
 </script>
